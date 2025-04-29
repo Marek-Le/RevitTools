@@ -1,0 +1,210 @@
+﻿<Window x:Class="TeslaRevitTools.EquipmentTagQuality.TagQualityWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeslaRevitTools.EquipmentTagQuality"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="TagQualityWindow" MinHeight="900" Width="1600">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Equipment Tags Check">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="DarkGray" BorderThickness="1" Grid.ColumnSpan="2"></Border>
+                    <DataGrid x:Name="MainDataGrid" Focusable="True" ItemsSource="{Binding TagElements}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" Margin="5" CellEditEnding="DataGrid_CellEditEnding">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="C0" Header="Workset" Binding="{Binding Workset}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C1" Header="Source File" Binding="{Binding SourceFile}" IsReadOnly="True" Visibility="Hidden"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C2" Header="Category" Binding="{Binding Category}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C3" Header="Family Name" Binding="{Binding FamilyName}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C4" Header="Family Type" Binding="{Binding FamilyType}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C5" Header="Element Mark" Binding="{Binding ElementMark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C6" Header="ARCU-Tag-Number" Binding="{Binding ArcuTag}"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C7" Header="Equipment Number" Binding="{Binding EquipmentNumber}" Visibility="Hidden"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C8" Header="PGMM-Designation" Binding="{Binding PgmmDesignation}" Visibility="Hidden"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C9" Header="Tag Compare Status" Binding="{Binding CompareStatus}" IsReadOnly="True">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="Status1">
+                                                <Setter Property="Background" Value="LightGreen"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Status2">
+                                                <Setter Property="Background" Value="LightGreen"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Status3">
+                                                <Setter Property="Background" Value="LightPink"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Status4">
+                                                <Setter Property="Background" Value="LightPink"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Status5">
+                                                <Setter Property="Background" Value="LightGray"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C10" Header="GB Location" Binding="{Binding Location}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C11" Header="GB Equipment Category" Binding="{Binding EquipmentCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C12" Header="GB System Name" Binding="{Binding SystemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C13" Header="GB Equipment Code" Binding="{Binding EquipmentCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C14" Header="Tag Check Status" Binding="{Binding TagCheckStatus}" IsReadOnly="True">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="Tag_Invalid">
+                                                <Setter Property="Background" Value="LightPink"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Tag_Duplicated">
+                                                <Setter Property="Background" Value="LightYellow"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Tag_OK">
+                                                <Setter Property="Background" Value="LightGreen"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Tag_Empty">
+                                                <Setter Property="Background" Value="LightGray"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C15" Header="Unique Id" Binding="{Binding UniqueId}" IsReadOnly="True" Visibility="Hidden"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C16" Header="Revit Id" Binding="{Binding RevitId}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C17" Header="BBoxString" Binding="{Binding BBoxString}" IsReadOnly="True" Visibility="Hidden"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C18" Header="GridIntersection" Binding="{Binding GridIntersection}" IsReadOnly="True" Visibility="Hidden"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="C19" Header="Edit Status" Binding="{Binding EditStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="Visible">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="Modified/Not updated">
+                                                <Setter Property="Background" Value="Yellow"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="SelectInRevit" Header="Select in Revit" Click="SelectInRevit_Click"/>
+                                <MenuItem x:Name="CopyArcu" Header="Copy from 'ARCU-Tag-Number' to 'Mark'" Click="CopyArcu_Click"/>
+                                <MenuItem x:Name="CopyPgmm" Header="Copy from 'PGMM - Designation' to 'Mark'" Click="CopyPgmm_Click"/>
+                                <MenuItem x:Name="CopyEqNumber" Header="Copy from 'Equipment Number' to 'Mark'" Click="CopyEqNumber_Click"/>
+                                <MenuItem x:Name="RemoveArcu" Header="Clear 'ARCU-Tag-Number' values" Click="RemoveArcu_Click"/>
+                                <MenuItem x:Name="FindReplace" Header="Find - Replace (Mark)" Click="FindReplace_Click"/>
+                                <MenuItem x:Name="ResolveDuplicates1" Header="Resolve selected duplicates (Mark) (1)" Click="ResolveSelectedDuplicates_Click"/>
+                                <MenuItem x:Name="AddNewParameter" Header="Add custom parameter column" Click="AddNewParameter_Click"/>
+                                <MenuItem x:Name="CopyCustomParameter" Header="Copy from custom parameter to 'Mark'" Click="CopyCustomParameter_Click"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.ToolTip>
+                            <TextBlock>
+                                    Right click to see context menu options
+                            </TextBlock>
+                        </DataGrid.ToolTip>
+                    </DataGrid>
+                    <GroupBox BorderBrush="DarkGray" Grid.Column="1" Height="110" Margin="5" VerticalAlignment="Top">
+                        <GroupBox.Header>
+                            Search categories:
+                        </GroupBox.Header>
+                        <Grid>
+                            <DataGrid x:Name="SearchCategoriesDataGrid" Background="White" BorderThickness="0" Grid.Column="1" Height="80" VerticalAlignment="Top" ItemsSource="{Binding Categories}" HeadersVisibility="None" GridLinesVisibility="None" AutoGenerateColumns="False" CanUserAddRows="False" Margin="5">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Width="*" Binding="{Binding ElementCategoryName}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                    <ProgressBar x:Name="LoadingProgressBar" Grid.Column="1" VerticalAlignment="Top" Margin="5,194,5,0" Height="19" Minimum="0" Maximum="100"></ProgressBar>
+                    <Button x:Name="FindElementsBtn" Grid.Column="1" VerticalAlignment="Top" Content="Find elements" Margin="5,169,5,0" Click="BtnClick_GetElementsByCategory">
+                        <Button.ToolTip>
+                            <TextBlock>
+                            Finds elements based on selected options above.
+                            <LineBreak /> 
+                            If you change above options click 'Find elements' again.          
+                            <LineBreak />
+                            Options below this button are dynamic view filters.
+                            </TextBlock>
+                        </Button.ToolTip>
+                    </Button>
+                    <TextBlock x:Name="ProgressState" HorizontalAlignment="Center" Margin="5,197" Grid.Column="1" VerticalAlignment="Top" FontSize="10"/>
+                    <GroupBox BorderBrush="DarkGray" Grid.Column="1" Height="280" Margin="5,218,5,0" VerticalAlignment="Top">
+                        <GroupBox.Header>
+                            Columns Visibility
+                        </GroupBox.Header>
+                        <Grid>
+                            <DataGrid x:Name="ColumnsVisibilityDataGrid" Background="White" BorderThickness="0" Height="250" VerticalAlignment="Top" ItemsSource="{Binding ColumnsVisibility}" HeadersVisibility="None" GridLinesVisibility="None" AutoGenerateColumns="False" CanUserAddRows="False" Margin="5,5,5,0">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"></CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Width="*" Binding="{Binding ColumnName}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                    <TextBox x:Name="FilterBox" Text="Search filter" GotFocus="FilterBox_GotFocus" Foreground="Gray" VerticalAlignment="Top" Grid.Column="1" Margin="5,503,5,0" Keyboard.KeyDown="FilterBox_KeyDown"></TextBox>
+                    <GroupBox Grid.Column="1" Margin="5,526,5,0" BorderBrush="DarkGray" Height="160" VerticalAlignment="Top">
+                        <GroupBox.Header>
+                            Display Status
+                        </GroupBox.Header>
+                        <Grid>
+                            <DataGrid x:Name="StatusCheckGrid" Background="White" ItemsSource="{Binding StatusChecks}" HeadersVisibility="None" GridLinesVisibility="None" AutoGenerateColumns="False" CanUserAddRows="False" Margin="5,5,5,5" BorderThickness="0">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="StatusChecked" Unchecked="StatusChecked"></CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Binding="{Binding Status}" IsReadOnly="True"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                                <DataGrid.ToolTip>
+                                    <TextBlock>
+                                    Status1: Mark meets tag criteria, Arcu doesn't or is null
+                                    <LineBreak /> 
+                                    Status2: Mark and Arcu meet tag criteria, Mark equals Arcu
+                                    <LineBreak /> 
+                                    Status3: Mark and Arcu meet tag criteria, Mark doesn't equal Arcu
+                                    <LineBreak /> 
+                                    Status4: Arcu meets tag criteria, Mark doesn't or is null
+                                    <LineBreak /> 
+                                    Status5: Mark and arcu don't meet tag criteria or are null
+                                    </TextBlock>
+                                </DataGrid.ToolTip>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                    <Label x:Name="SummaryLabel" Grid.Column="1" VerticalAlignment="Bottom" Margin="5,5,5,110" Content="{Binding SummaryLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="12" Foreground="DarkGreen" FontWeight="Bold" HorizontalContentAlignment="Center"></Label>
+                    <CheckBox x:Name="ActiveViewCheckBox" IsChecked="{Binding ActiveViewOnly, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Search active view only" Grid.Column="1" Margin="5,123,5,0" VerticalAlignment="Top"></CheckBox>
+                    <CheckBox x:Name="ExcSubComponentsCheckBox" IsChecked="{Binding ExcludeSubcomponents, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Exclude subcomponents" Grid.Column="1" Margin="5,146,5,0" VerticalAlignment="Top"></CheckBox>
+
+                    <Button Content="Save as CSV" Grid.Column="1" VerticalAlignment="Bottom" Margin="5,5,5,90" Click="BtnClick_SaveAsCsv"></Button>
+                    <Button Content="Send tags to Gigabase" Grid.Column="1" VerticalAlignment="Bottom" Margin="5,5,5,65" Click="BtnClick_SendSelectedToGb"></Button>
+                    <Button Content="Update all tags in Model" Grid.Column="1" VerticalAlignment="Bottom" Margin="5,5,5,5" Click="BtnClick_UpdateMark"></Button>
+                    <Button Content="Update selected tags in Model" Grid.Column="1" VerticalAlignment="Bottom" Margin="5,5,5,30" Click="BtnClick_UpdateSelectedMarks"></Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

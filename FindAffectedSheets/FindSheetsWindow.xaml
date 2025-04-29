@@ -1,0 +1,52 @@
+﻿<Window x:Class="TeslaRevitTools.FindAffectedSheets.FindSheetsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeslaRevitTools.FindAffectedSheets"
+        mc:Ignorable="d"
+        Closed="Window_Closed"
+        WindowStartupLocation="CenterOwner"
+        Title="FindSheetsWindow" Height="400" Width="800">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="1" BorderBrush="DarkGray" Grid.ColumnSpan="3" Grid.RowSpan="3"></Border>
+        <Label Content="Selected elements:"></Label>
+        <Label Content="Affected views:" Grid.Column="1"></Label>
+        <Label Content="Affected sheets:" Grid.Column="2"></Label>
+
+        <DataGrid x:Name="SelectedElementsGrid" Grid.Row="1" ItemsSource="{Binding SelectedElements, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ElementId" Binding="{Binding ElementId}" IsReadOnly="True" FontSize="10"></DataGridTextColumn>
+                <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}" IsReadOnly="True" FontSize="10"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Binding="{Binding TypeName}" Width="*" IsReadOnly="True" FontSize="10"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="AffectedViewsGrid" Grid.Row="1" ItemsSource="{Binding FoundViews, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" MouseDoubleClick="AffectedViewsGrid_MouseDoubleClick" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ElementId" IsReadOnly="True" Binding="{Binding Id.IntegerValue}" FontSize="10"></DataGridTextColumn>
+                <DataGridTextColumn Header="View Name" IsReadOnly="True" Binding="{Binding Name}" FontSize="10"></DataGridTextColumn>
+                <DataGridTextColumn Header="View Type" Width="*" IsReadOnly="True" Binding="{Binding ViewType}" FontSize="10"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="AffectedSheetsGrid" Grid.Row="1" ItemsSource="{Binding FoundSheets, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" AutoGenerateColumns="False" CanUserAddRows="False" MouseDoubleClick="AffectedSheetsGrid_MouseDoubleClick" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ElementId" IsReadOnly="True" Binding="{Binding Id.IntegerValue}" FontSize="10"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sheet Number" IsReadOnly="True" Binding="{Binding SheetNumber}" FontSize="10"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sheet Name" Width="*" IsReadOnly="True" Binding="{Binding Name}" FontSize="10"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="CheckButton" Visibility="Visible" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" Content="Find affected sheets" Click="CheckButton_Click" IsEnabled="False"></Button>
+        <ProgressBar x:Name="ProgressBar" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" Visibility="Collapsed"></ProgressBar>
+        <TextBlock x:Name="ProgressState" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" Visibility="Collapsed" VerticalAlignment="Center"/>
+    </Grid>
+</Window>

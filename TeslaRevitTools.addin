@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Tesla Revit Tools</Name>
+    <Assembly>TeslaRevitTools.dll</Assembly>
+    <AddInId>BA9F1825-8290-4864-A783-24ED3735F811</AddInId>
+    <FullClassName>TeslaRevitTools.App</FullClassName>
+    <VendorId>TSLA</VendorId>
+    <VendorDescription>Tesla</VendorDescription>
+  </AddIn>
+</RevitAddIns>

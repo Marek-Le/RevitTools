@@ -1,0 +1,28 @@
+﻿<Window x:Class="TeslaRevitTools.FileCleaner.FileCleanerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeslaRevitTools.FileCleaner"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
+        Title="FileCleanerWindow" Height="300" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="120"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5" BorderBrush="Gray" BorderThickness="1"></Border>
+        <ListBox x:Name="LinksBox" Grid.ColumnSpan="2" ItemsSource="{Binding DirectoryPaths, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" PreviewKeyDown="LinksBox_PreviewKeyDown" PreviewMouseDoubleClick="LinksBox_PreviewMouseDoubleClick"/>
+        <Label Content="Delete files older than:" Grid.ColumnSpan="2" Grid.Row="1" Margin="5,5,0,0" Width="130" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="days" Grid.Row="1" Grid.ColumnSpan="2" Margin="185,5,0,0" Width="40" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button Content="Save and activate" Grid.Row="1" Height="23" Margin="10" VerticalAlignment="Bottom" Click="BtnClick_SaveAndActivate"/>
+        <Label x:Name="StatusLabel" Content="{Binding StatusLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5"/>
+        <Button Content="Deactivate" Grid.Row="1" Grid.Column="1" Height="23" Margin="10" VerticalAlignment="Bottom" Click="BtnClick_Deactivate"/>
+        <CheckBox x:Name="CheckBoxDeleteDirectories" Visibility="Collapsed" IsChecked="{Binding DeleteDirectories}" Grid.ColumnSpan="2" Content="Delete empty directories" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ComBoxDays" SelectedIndex="{Binding DaysAllowedIndex}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="140,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="45"/>
+    </Grid>
+</Window>
