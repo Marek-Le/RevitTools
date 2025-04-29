@@ -1,3 +1,3 @@
 Generate Sheets Tool:
-![Screenshot](main/GenerateSheets/screens/MainScreen.png)
-![Screenshot](main/GenerateSheets/screens/ResultScreen.png)
+![Screenshot](GenerateSheets/screens/MainScreen.png)
+![Screenshot](GenerateSheets/screens/ResultScreen.png)
